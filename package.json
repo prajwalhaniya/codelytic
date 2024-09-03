@@ -1,0 +1,17 @@
+{
+  "name": "codelytic",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Prajwal Haniya",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ts-morph": "^23.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

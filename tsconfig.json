@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "target": "ESNext",
+        "outDir": "build",
+        "declaration": true,
+        "declarationDir": "types",
+        "sourceMap": true,
+        "skipLibCheck": true,
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
