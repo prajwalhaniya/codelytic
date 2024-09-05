@@ -51,28 +51,41 @@ class CodeLytic {
     public project: Project;
     public sourceFilePaths: SourceFile[];
 
-    constructor() {
+    constructor(paths: string[]) {
         this.project = new Project();
-        this.project.addSourceFilesAtPaths([`../../lake/sample/**/*.ts`]);
+        this.project.addSourceFilesAtPaths(paths);
     }
 
-    public getImportsInEachFile() {
-        const filesInProject: SourceFile[] = this.project.getSourceFiles();
+    private getImports(file: SourceFile) {
+        console.log(`Imports in source file ${file.getFilePath()}`);
+        const imports = []
         
-        for (let i = 0; i < filesInProject.length; i++) {
-            const file = filesInProject[i];
-            console.log(`Imports in source file ${file.getFilePath()}`);
+        const importDeclarations: ImportDeclaration[] = file.getImportDeclarations();
+        importDeclarations.map(declaration =>  imports.push(declaration.getModuleSpecifierValue()));
+        return imports;       
+    }
 
-            const importDeclarations: ImportDeclaration[] = file.getImportDeclarations();
-            const imports = importDeclarations.find(declaration => console.log({ d: declaration.getModuleSpecifierValue()}));
-            
-            // const namedImports = imports.getNamedImports().find(namedImport => namedImport.getName() === 'Project');
-            console.log({ imports });
+    private getNamedImports(file: SourceFile) {
+
+    }
+
+    // private checkNamedImports
+
+    public getAnalytics() {
+        
+        const filesInProject: SourceFile[] = this.project.getSourceFiles();
+        const global_collection_of_imports = new Map();
+
+        for (let i = 0; i < filesInProject.length; i++) {
+            const file: SourceFile = filesInProject[i];
+            const file_path: string = file.getFilePath();
+            const importsInFile = this.getImports(file);
+            global_collection_of_imports.set(file_path, { packages: importsInFile });
         }
+
+        console.dir({ global_collection_of_imports: global_collection_of_imports.entries() }, { depth: 8 });
     }
 }
 
-export {
-    CodeLytic
-}
+export { CodeLytic }
 
